@@ -1,5 +1,14 @@
 from django.contrib import admin
-from .models import Course, Lesson, Question, Choice, Submission
+
+from .models import (
+    Course,
+    Lesson,
+    Question,
+    Choice,
+    Submission,
+    Instructor,
+    Learner,
+)
 
 
 class ChoiceInline(admin.TabularInline):
@@ -30,8 +39,18 @@ class LessonAdmin(admin.ModelAdmin):
 
 @admin.register(Course)
 class CourseAdmin(admin.ModelAdmin):
-    list_display = ("name", "description")
+    list_display = ("name", "description", "instructor")
     inlines = [LessonInline, QuestionInline]
+
+
+@admin.register(Instructor)
+class InstructorAdmin(admin.ModelAdmin):
+    list_display = ("name", "email")
+
+
+@admin.register(Learner)
+class LearnerAdmin(admin.ModelAdmin):
+    list_display = ("name", "email")
 
 
 admin.site.register(Choice)
